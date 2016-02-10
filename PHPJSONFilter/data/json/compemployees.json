@@ -1,0 +1,29 @@
+[
+  {
+    "business": "ABC Company",
+    "address": "131 Main Street",
+    "employees": [
+      {"value": "Alvin", "year": "2009"},
+      {"value": "Barbarette", "year": "2008"},
+      {"value": "Cheyenne", "year": "2007"}
+    ]
+  },
+    {
+    "business": "DEF Company",
+    "address": "242 Main Street",
+    "employees": [
+      {"value": "Dale","year": "2006"},
+      {"value": "Egwene","year": "2005"},
+      {"value": "Francis","year": "2004"}
+    ]
+  },
+    {
+    "business": "HIJ Company",
+    "address": "353 Main Street",
+    "employees": [
+      {"value": "Hector","year": "2003"},
+      {"value": "Ilene","year": "2002"},
+      {"value": "Jacob","year": "2001"}
+    ]
+  }
+]

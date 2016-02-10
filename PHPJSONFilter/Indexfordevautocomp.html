@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Mobile Responsive Type Ahead functionality" />
+    <meta name="keywords" content="IT Nachos ITNACHOS TypeAhead Type Ahead Functionality" />
+    <link rel="stylesheet" href="/releasev1/Styles/styles.css" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <title>Type Ahead functionality</title>
+</head>
+
+<body>
+    <div id="wrapper" style="margin-left: 50px; margin-top: 30px;">
+        <h1>Input Your Query Below.</h1>
+        <div id="multiple-datasets">
+            <input id="auto1" class="auto" type="text" placeholder="Enter Query">
+            <input id="auto2" class="auto" type="text" placeholder="Enter Query">
+            <input id="auto3" class="auto" type="text" placeholder="Enter Query">
+        </div>
+        <label id="lblyear">Year Label</label>
+        <input id="cbsrtky" type="checkbox"> Sort Descending?
+        <div style="text-align: center; margin-top: 20px">
+            <select id="ddlsortkey">
+                <option value="value">value</option>
+                <option value="year">year</option>
+            </select>
+            <select id="ddljsoncategory">
+                <option value="movies">movies</option>
+                <option value="sports">sports</option>
+                <option value="companies">companies</option>
+                <option value="all">movies&sports</option>
+            </select>
+        </div>
+    </div>
+    <footer>
+
+    </footer>
+    <script src="/releasev1/scripts/AutoComplete/jquery.devautocomplete.js"></script>
+    <script>
+        var srtdscvalue = false;
+        var srtkyvalue = document.getElementById('ddlsortkey').value;
+        var jsncatval = document.getElementById('ddljsoncategory').value;
+        var depthval = 0;
+        $('#cbsrtky,#ddlsortkey,#ddljsoncategory').change(function() {
+            var srtdscvalue = ($('#cbsrtky').is(":checked") ? "1" : "0");
+            var srtkyvalue = document.getElementById('ddlsortkey').value;
+            var jsncatval = document.getElementById('ddljsoncategory').value;  
+            if(jsncatval.toLowerCase() === "companies")
+            {
+                depthval = 2;
+            } else { depthval = 0; }
+            //The .class selector doesn't change the params on all the boxes, only the first... the #ID selector will work.  
+            $('#auto1,#auto2,#auto3').each(function(){
+                $(this).devbridgeAutocomplete().setOptions({
+                params: {   sortdscnd : srtdscvalue,
+                            sortkey : srtkyvalue,
+                            jsoncategory : jsncatval, 
+                            depth : depthval
+                }
+                });
+            });
+        });
+        
+        $('.auto').devbridgeAutocomplete({
+            serviceUrl: 'https://webelements-patjknott.c9users.io/releasev1/data/driverfordata.php',
+            type: 'POST',  //default GET.
+            params: {
+                sortdscnd : srtdscvalue, 
+                sortkey : srtkyvalue,
+                jsoncategory : jsncatval, 
+                depth : depthval
+            },
+            minChars: 2,
+            onSelect: function(suggestion) {
+                //alert('You selected: ' + suggestion.value); //test
+                document.getElementById("lblyear").textContent = suggestion.year;
+            }
+        });
+    </script>
+</body>
+
+</html>
